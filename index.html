@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>For You · April 11 ❤️</title>
+  <meta name="description" content="A message that changed everything." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Grain Texture Overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar" aria-hidden="true">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Music Toggle (persistent across all screens) -->
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle background music" title="Toggle music">
+    <span class="music-icon" id="musicIcon">🎵</span>
+  </button>
+
+  <!-- ══════════════════════════════════════════════════
+       SCREEN 1 — NOTIFICATION
+  ══════════════════════════════════════════════════ -->
+  <div class="screen screen-notif active" id="screenNotif">
+    <div class="notif-ambient" aria-hidden="true"></div>
+    <div class="notif-center">
+
+      <!-- Fake phone status bar -->
+      <div class="phone-statusbar" aria-hidden="true">
+        <span>9:41</span>
+        <span class="statusbar-icons">●●● ▲ ▌</span>
+      </div>
+
+      <!-- Telegram notification card -->
+      <div class="tg-notif-card" id="tgNotifCard" role="button" tabindex="0" aria-label="Open message from Tapswi">
+        <div class="notif-icon-wrap" aria-hidden="true">
+          <svg class="tg-icon" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="120" r="120" fill="url(#tgGrad)"/>
+            <path d="M176 74.5L155.7 165.3c-1.5 6.7-5.5 8.4-11.1 5.2L115.8 149l-13.8 13.3c-1.5 1.5-2.8 2.8-5.7 2.8l2-28.4 51.7-46.7c2.2-2-0.5-3.1-3.5-1.1L68.4 130.1l-28.1-8.8c-6.1-1.9-6.2-6.1 1.3-9L168 68.8c5.1-1.9 9.5 1.2 7.9 10.1z" fill="white"/>
+            <defs>
+              <linearGradient id="tgGrad" x1="0" y1="0" x2="240" y2="240">
+                <stop offset="0%" stop-color="#2AABEE"/>
+                <stop offset="100%" stop-color="#229ED9"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="notif-text-body">
+          <div class="notif-row-top">
+            <span class="notif-app-name">Telegram</span>
+            <span class="notif-dot" aria-hidden="true">●</span>
+            <span class="notif-time-text">now</span>
+          </div>
+          <div class="notif-sender-name">Tapswi</div>
+          <div class="notif-preview-text">Hi</div>
+        </div>
+      </div>
+
+      <p class="notif-open-hint">tap to open ↑</p>
+    </div>
+
+    <div class="notif-footer-text">
+      <p>A message that changed everything.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SCREEN 2 — CHAT
+  ══════════════════════════════════════════════════ -->
+  <div class="screen screen-chat hidden" id="screenChat">
+
+    <!-- Chat Header -->
+    <header class="chat-header" id="chatHeader">
+      <button class="chat-back-btn" id="chatBackBtn" aria-label="Back" tabindex="-1">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <div class="chat-avatar-wrap">
+        <div class="chat-avatar-circle">T</div>
+        <span class="chat-online-dot" id="onlineDot" aria-hidden="true"></span>
+      </div>
+      <div class="chat-header-info">
+        <div class="chat-contact-name">Tapswi</div>
+        <div class="chat-contact-status" id="chatStatus">last seen recently</div>
+      </div>
+      <div class="chat-header-actions" aria-hidden="true">
+        <button class="header-action-btn" tabindex="-1" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C9.4 21 3 14.6 3 7c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        </button>
+        <button class="header-action-btn" tabindex="-1" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Message Feed -->
+    <div class="chat-messages-area" id="chatMessages" role="log" aria-live="polite" aria-label="Chat messages">
+      <!-- Messages injected by JS -->
+    </div>
+
+    <!-- Fake Input Bar -->
+    <div class="chat-input-bar" aria-hidden="true">
+      <div class="input-pill">
+        <button class="input-btn" tabindex="-1">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 2C6.26 2 2 6.26 2 11.5S6.26 21 11.5 21c.9 0 1.77-.12 2.6-.33l1.1-3.27A8 8 0 1 1 19.67 14.1l3.27-1.1c.21-.83.33-1.7.33-2.6C23.27 5.21 18 2 11.5 2z"/><circle cx="9" cy="13" r="1.5"/><circle cx="14.5" cy="13" r="1.5"/></svg>
+        </button>
+        <div class="input-placeholder-text">Message</div>
+        <button class="input-btn" tabindex="-1">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a4 4 0 0 1 4 4v4a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4zm0 16a7.5 7.5 0 0 0 7.5-7.5h-1.5a6 6 0 0 1-12 0H4.5A7.5 7.5 0 0 0 12 19zm0 2v-2"/></svg>
+        </button>
+      </div>
+      <button class="input-send-btn" tabindex="-1" aria-label="Send">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SCREEN 3 — TRANSITION
+  ══════════════════════════════════════════════════ -->
+  <div class="screen screen-transition hidden" id="screenTransition">
+    <div class="bloom-origin" id="bloomOrigin" aria-hidden="true"></div>
+    <div class="transition-content" id="transitionContent">
+      <p class="transition-line" id="tl1">"I didn't know</p>
+      <p class="transition-line" id="tl2">this message</p>
+      <p class="transition-line" id="tl3">would change my life"</p>
+      <span class="transition-heart" id="tHeart" aria-hidden="true">❤️</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SCREEN 4 — FINAL BIRTHDAY
+  ══════════════════════════════════════════════════ -->
+  <div class="screen screen-final hidden" id="screenFinal">
+    <div class="final-inner">
+      <div class="final-date-tag">April 11 · 2026</div>
+
+      <h1 class="final-title">
+        Happy Birthday<br/>
+        <em>❤️</em>
+      </h1>
+
+      <div class="final-letter" id="finalLetter">
+        <p class="letter-para" style="--li:0">From a random "Hi" on Telegram…</p>
+        <p class="letter-para" style="--li:1">to late nights talking about everything and nothing.</p>
+        <p class="letter-para" style="--li:2">To becoming the person I look forward to every single day.</p>
+        <p class="letter-para" style="--li:3">You didn't just reply to a message.</p>
+        <p class="letter-para" style="--li:4">You replied to a life that was waiting for someone like you.</p>
+        <p class="letter-para" style="--li:5">Every design you create makes the world a little more beautiful.</p>
+        <p class="letter-para" style="--li:6">But your greatest design?</p>
+        <p class="letter-para letter-bold" style="--li:7">The way you made me feel loved.</p>
+        <p class="letter-para letter-em" style="--li:8">You don't just design interfaces.</p>
+        <p class="letter-para letter-em letter-bold" style="--li:9">You redesigned my entire world.</p>
+      </div>
+
+      <div class="final-closing">
+        <p class="closing-quote">"Best message I ever sent."</p>
+        <p class="closing-sig">— with all my love, always ❤️</p>
+      </div>
+    </div>
+
+    <!-- Particle heart sparkles -->
+    <canvas class="heart-sparkle-canvas" id="heartSparkleCanvas" aria-hidden="true"></canvas>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       IMAGE LIGHTBOX
+  ══════════════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo viewer" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <div class="lb-img-wrap" id="lbImgWrap"></div>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <!-- Hidden YouTube Player Container -->
+  <div id="ytPlayerContainer" style="position:fixed;bottom:-2px;right:-2px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;z-index:-1;" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
