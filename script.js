@@ -483,6 +483,22 @@
     const particles = [];
     const colors = ['#ff6b9d', '#c44569', '#ffdde6', '#ffffff', '#f9c6d0', '#ff91b8', '#e8a0c0'];
 
+    // Color helpers for 3D shading
+    function lighten(hex, amt) {
+      const n = parseInt(hex.replace('#',''), 16);
+      let r = Math.min(255, ((n >> 16) & 0xff) + Math.round(amt * 255));
+      let g = Math.min(255, ((n >> 8)  & 0xff) + Math.round(amt * 255));
+      let b = Math.min(255, ((n)       & 0xff) + Math.round(amt * 255));
+      return `rgb(${r},${g},${b})`;
+    }
+    function darken(hex, amt) {
+      const n = parseInt(hex.replace('#',''), 16);
+      let r = Math.max(0, ((n >> 16) & 0xff) - Math.round(amt * 255));
+      let g = Math.max(0, ((n >> 8)  & 0xff) - Math.round(amt * 255));
+      let b = Math.max(0, ((n)       & 0xff) - Math.round(amt * 255));
+      return `rgb(${r},${g},${b})`;
+    }
+
     // Draw a heart shape centered at (cx, cy) with given size
     function drawHeart(cx, cy, size) {
       const s = size;
@@ -528,9 +544,35 @@
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         ctx.globalAlpha = alpha;
-        ctx.fillStyle = p.color;
+
+        // Clip to heart shape first
         drawHeart(0, 0, p.size);
-        ctx.fill();
+        ctx.save();
+        ctx.clip();
+
+        // 3D radial gradient body — dark at edges, bright in center
+        const grad = ctx.createRadialGradient(
+          -p.size * 0.25, -p.size * 0.35, p.size * 0.05,  // highlight origin
+          0, 0, p.size * 1.15                              // outer edge
+        );
+        grad.addColorStop(0,   lighten(p.color, 0.55));  // bright center
+        grad.addColorStop(0.45, p.color);                 // base color
+        grad.addColorStop(1,   darken(p.color, 0.45));   // dark edge
+        ctx.fillStyle = grad;
+        ctx.fillRect(-p.size * 1.2, -p.size * 1.2, p.size * 2.4, p.size * 2.4);
+
+        // Glossy white highlight
+        const hGrad = ctx.createRadialGradient(
+          -p.size * 0.3, -p.size * 0.45, 0,
+          -p.size * 0.3, -p.size * 0.45, p.size * 0.45
+        );
+        hGrad.addColorStop(0,   'rgba(255,255,255,0.55)');
+        hGrad.addColorStop(1,   'rgba(255,255,255,0)');
+        ctx.fillStyle = hGrad;
+        ctx.fillRect(-p.size * 1.2, -p.size * 1.2, p.size * 2.4, p.size * 2.4);
+
+        ctx.restore(); // restore clip
+
         ctx.restore();
 
         // Reset when it floats off the bottom
