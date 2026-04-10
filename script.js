@@ -40,35 +40,35 @@
 
     { type: 'recv', text: 'Hi', time: '2:47 PM', gap: 600 },
     { type: 'typing', ms: 1100 },
-    { type: 'sent', text: 'Hey! 👋', time: '2:47 PM' },
+    { type: 'sent', text: 'Hello', time: '2:47 PM' },
     { type: 'typing', ms: 1600 },
-    { type: 'recv', text: 'lol you actually replied', time: '2:48 PM' },
+    { type: 'recv', text: 'Kya chalra hai?', time: '2:48 PM' },
     { type: 'typing', ms: 1000 },
-    { type: 'sent', text: 'Of course? Why wouldn\'t I 😄', time: '2:48 PM' },
+    { type: 'sent', text: 'Bas wahi same study, tum batao', time: '2:48 PM' },
     { type: 'typing', ms: 1900 },
-    { type: 'recv', text: 'idk I wasn\'t sure you\'d even see it', time: '2:49 PM' },
+    { type: 'recv', text: 'Kuch nahi, bore ho rahi thi', time: '2:49 PM' },
     { type: 'typing', ms: 1100 },
-    { type: 'sent', text: 'I saw it the second you sent it 🙈', time: '2:49 PM' },
+    { type: 'sent', text: 'Toh mujhe msg kar diya kro? lol', time: '2:49 PM' },
     { type: 'typing', ms: 1800 },
-    { type: 'recv', text: 'okay that\'s actually cute', time: '2:49 PM' },
+    { type: 'recv', text: 'Haan, aur koi thha nahi', time: '2:49 PM' },
     { type: 'typing', ms: 700 },
-    { type: 'sent', text: '😊', time: '2:50 PM', emojiOnly: true },
+    { type: 'sent', text: 'Nice', time: '2:50 PM' },
 
     { type: 'date-divider', text: 'A few days later…' },
 
-    { type: 'recv', text: 'Are you free this weekend?', time: '8:21 PM', gap: 800 },
+    { type: 'recv', text: 'Suno', time: '8:21 PM', gap: 800 },
     { type: 'typing', ms: 1700 },
-    { type: 'sent', text: 'For you? Always 😄', time: '8:22 PM' },
+    { type: 'sent', text: 'Haan bolo', time: '8:22 PM' },
     { type: 'typing', ms: 1400 },
-    { type: 'recv', text: 'don\'t be cute about it', time: '8:22 PM' },
+    { type: 'recv', text: 'Videocall kare?', time: '8:22 PM' },
     { type: 'typing', ms: 700 },
-    { type: 'sent', text: 'Too late 😇', time: '8:22 PM' },
+    { type: 'sent', text: 'Abhi baahar hu, thodi der me karu?', time: '8:22 PM' },
     { type: 'typing', ms: 2200 },
-    { type: 'recv', text: '😂 okay you\'re literally impossible', time: '8:23 PM' },
+    { type: 'recv', text: 'Hamesha nakhre tumhare, mat karo jao', time: '8:23 PM' },
     { type: 'typing', ms: 1000 },
-    { type: 'sent', text: 'You love it', time: '8:23 PM' },
+    { type: 'sent', text: '😂 Arey gussa mat ho karta hu 5 min me', time: '8:23 PM' },
     { type: 'typing', ms: 2800 },
-    { type: 'recv', text: '…maybe', time: '8:24 PM' },
+    { type: 'recv', text: 'Hmm', time: '8:24 PM' },
 
     { type: 'date-divider', text: 'Some memories…' },
 
@@ -81,13 +81,15 @@
 
     { type: 'date-divider', text: 'Today…' },
 
-    { type: 'sent', text: 'Hey', time: '11:57 PM', gap: 1200 },
-    { type: 'typing', ms: 1800 },
-    { type: 'sent', text: 'I\'ve been thinking about something', time: '11:58 PM' },
-    { type: 'typing', ms: 2200 },
-    { type: 'sent', text: 'That first "Hi" you sent me…', time: '11:58 PM' },
-    { type: 'typing', ms: 2600 },
-    { type: 'sent', text: 'I had no idea it would change everything ❤️', time: '11:59 PM', isKey: true },
+    { type: 'sent', text: 'Oyee', time: '11:57 PM', gap: 1200 },
+    { type: 'sent', text: 'So gayi kya?', time: '11:58 PM' },
+    { type: 'sent', text: 'Wese hi soch rha tha', time: '11:58 PM' },
+    { type: 'typing', ms: 2800 },
+    { type: 'recv', text: 'Kya', time: '11:58 PM' },
+    { type: 'sent', text: 'Abhi main kuch dikhata hu ', time: '11:59 PM' },
+    { type: 'typing', ms: 1600 },
+    { type: 'recv', text: 'Kya', time: '11:59 PM' },
+    { type: 'sent', text: 'Ak Surprise hai Dekho', time: '11:59 PM', isKey: true },
 
     // This triggers the cinematic transition
     { type: 'transition-trigger' },
@@ -136,24 +138,29 @@
   /* ════════════════════════════════════════════════════
      ⑤ SCREEN TRANSITIONS
   ════════════════════════════════════════════════════ */
-  function goTo(nextId, delay = 0) {
+  function goTo(nextId, delay = 0, isSlow = false) {
     setTimeout(() => {
       const prev = document.querySelector('.screen.active');
       const next = $(nextId);
       if (!next || !prev) return;
 
-      prev.classList.add('exiting');
+      const exitClass = isSlow ? 'exiting-slow' : 'exiting';
+      const exitTime = isSlow ? 2500 : 600;
+
+      prev.classList.add(exitClass);
       prev.classList.remove('active');
       setTimeout(() => {
-        prev.classList.remove('exiting');
+        prev.classList.remove(exitClass);
         prev.classList.add('hidden');
-      }, 600);
+      }, exitTime);
 
+      const enterClass = isSlow ? 'entering-slow' : 'entering';
       next.classList.remove('hidden');
-      next.classList.add('entering');
+      next.classList.add(enterClass);
+
       setTimeout(() => {
         next.classList.add('active');
-        next.classList.remove('entering');
+        next.classList.remove(enterClass);
       }, 50);
 
       currentScreen = nextId;
@@ -383,8 +390,8 @@
     }
 
     if (msg.type === 'transition-trigger') {
-      // Pause, then transition
-      await sleep(2200);
+      // Pause longer to let the surprise message sink in, then transition slowly
+      await sleep(3500);
       triggerTransition();
       return;
     }
@@ -430,29 +437,28 @@
       const rect = keyBubble.getBoundingClientRect();
       bloomEl.style.left = (rect.left + rect.width / 2) + 'px';
       bloomEl.style.top = (rect.top + rect.height / 2) + 'px';
+      bloomEl.style.animationDuration = '3.5s'; // Slower bloom
     }
 
-    // Transition to screen 3
-    goTo('screenTransition');
+    // Transition to screen 3 very slowly
+    goTo('screenTransition', 0, true);
 
-    // Stagger the quote lines
+    // Stagger the quote lines slower
     const lines = ['tl1', 'tl2', 'tl3', 'tHeart'];
     lines.forEach((id, i) => {
       setTimeout(() => {
         const el = $(id);
         if (el) el.classList.add('show');
-      }, 600 + i * 450);
+      }, 1500 + i * 800); // 1.5s start, 800ms gap
     });
 
-    // Then go to final (shorter delay for smoother feel)
+    // Then go to final (wait longer for slow quote reads)
     setTimeout(() => {
-      goTo('screenFinal');
-      // Start heart sparkles immediately when we target final screen
-      if (heartSparkleCanvas) initHeartSparkles(heartSparkleCanvas);
+      goTo('screenFinal', 0, true); // also transition slowly into final
       setTimeout(() => {
         startFinalSequence();
-      }, 600);
-    }, 3500);
+      }, 2000); // wait longer for the entering transition
+    }, 6500);
   }
 
   /* ════════════════════════════════════════════════════
@@ -491,15 +497,15 @@
       ctx.closePath();
     }
 
-    // 150 hearts, all starting at the bottom half for a dramatic rise
-    for (let i = 0; i < 150; i++) {
-      const startY = h + Math.random() * h * 0.5; // start just below or at very bottom
+    // 250 hearts, all starting at the bottom half for a massive dramatic rise
+    for (let i = 0; i < 250; i++) {
+      const startY = h + Math.random() * h * 0.8; // start even lower
       particles.push({
         x: Math.random() * w,
         y: startY,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: -(Math.random() * 1.8 + 0.6),   // faster upward speed
-        size: Math.random() * 8 + 3,
+        vx: (Math.random() - 0.5) * 1.0,  // slightly wider spread
+        vy: -(Math.random() * 2.5 + 1.0), // much faster upward speed
+        size: Math.random() * 9 + 4,      // slightly larger hearts
         rot: Math.random() * Math.PI * 2,
         rotV: (Math.random() - 0.5) * 0.04,
         alpha: Math.random() * 0.6 + 0.3,
@@ -509,7 +515,6 @@
     }
 
     function animate() {
-      if (currentScreen !== 'screenFinal') return;
       ctx.clearRect(0, 0, w, h);
 
       particles.forEach(p => {
@@ -653,6 +658,9 @@
     });
     screenNotif.classList.remove('hidden');
     screenNotif.classList.add('active');
+
+    // Run global heart sparkles background overlay
+    if (heartSparkleCanvas) initHeartSparkles(heartSparkleCanvas);
   }
 
   if (document.readyState === 'loading') {

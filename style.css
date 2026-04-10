@@ -162,6 +162,28 @@ body {
   to   { opacity: 1; transform: scale(1); }
 }
 
+/* Slower screen transitions for final sequences */
+.screen.exiting-slow {
+  opacity: 0;
+  z-index: 90;
+  transition: opacity 2.5s var(--ease-out), visibility 2.5s;
+}
+.screen.entering-slow {
+  z-index: 100;
+  animation: screenEnterSlow 2.5s var(--ease-out) forwards;
+}
+@keyframes screenEnterSlow {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#screenFinal.entering-slow {
+  animation: finalScreenEnterSlow 3.5s var(--ease-out) forwards;
+}
+@keyframes finalScreenEnterSlow {
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 /* ══════════════════════════════════════════════
    SCREEN 1 — NOTIFICATION
 ══════════════════════════════════════════════ */
@@ -845,14 +867,14 @@ body {
   font-style: italic;
 }
 
-/* Heart Sparkle Canvas */
+/* Heart Sparkle Canvas (Global Overlay) */
 .heart-sparkle-canvas {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   pointer-events: none;
-  z-index: 1;
+  z-index: 200; /* Above all screens */
 }
 
 /* ══════════════════════════════════════════════
