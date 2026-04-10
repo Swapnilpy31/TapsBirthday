@@ -481,7 +481,8 @@
     let h = canvas.height = window.innerHeight;
 
     const particles = [];
-    const colors = ['#ff6b9d', '#c44569', '#ffdde6', '#ffffff', '#f9c6d0', '#ff91b8', '#e8a0c0'];
+    // Dark red palette
+    const colors = ['#8b0000', '#a00010', '#6b0000', '#b01020', '#900015', '#7a0008'];
 
     // Color helpers for 3D shading
     function lighten(hex, amt) {
@@ -513,18 +514,18 @@
       ctx.closePath();
     }
 
-    // 250 hearts, falling like glitter from the top
-    for (let i = 0; i < 250; i++) {
-      const startY = Math.random() * h * 1.5 - h * 0.5; // scatter vertically
+    // 60 hearts — subtle glitter, not overwhelming
+    for (let i = 0; i < 60; i++) {
+      const startY = Math.random() * h * 1.5 - h * 0.5;
       particles.push({
         x: Math.random() * w,
         y: startY,
-        vx: (Math.random() - 0.5) * 1.0,
-        vy: Math.random() * 2.5 + 1.0, // fall downward
-        size: Math.random() * 9 + 4,      // slightly larger hearts
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: Math.random() * 1.5 + 0.5,
+        size: Math.random() * 7 + 3,
         rot: Math.random() * Math.PI * 2,
-        rotV: (Math.random() - 0.5) * 0.04,
-        alpha: Math.random() * 0.6 + 0.3,
+        rotV: (Math.random() - 0.5) * 0.03,
+        alpha: Math.random() * 0.5 + 0.3,
         color: colors[Math.floor(Math.random() * colors.length)],
         twinkle: Math.random() * Math.PI * 2,
       });
@@ -545,33 +546,23 @@
         ctx.rotate(p.rot);
         ctx.globalAlpha = alpha;
 
-        // Clip to heart shape first
+        // Solid dark red fill
         drawHeart(0, 0, p.size);
-        ctx.save();
-        ctx.clip();
+        ctx.fillStyle = p.color;
+        ctx.fill();
 
-        // 3D radial gradient body — dark at edges, bright in center
-        const grad = ctx.createRadialGradient(
-          -p.size * 0.25, -p.size * 0.35, p.size * 0.05,  // highlight origin
-          0, 0, p.size * 1.15                              // outer edge
-        );
-        grad.addColorStop(0,   lighten(p.color, 0.55));  // bright center
-        grad.addColorStop(0.45, p.color);                 // base color
-        grad.addColorStop(1,   darken(p.color, 0.45));   // dark edge
-        ctx.fillStyle = grad;
-        ctx.fillRect(-p.size * 1.2, -p.size * 1.2, p.size * 2.4, p.size * 2.4);
-
-        // Glossy white highlight
+        // Tiny subtle highlight only
         const hGrad = ctx.createRadialGradient(
-          -p.size * 0.3, -p.size * 0.45, 0,
-          -p.size * 0.3, -p.size * 0.45, p.size * 0.45
+          -p.size * 0.28, -p.size * 0.4, 0,
+          -p.size * 0.28, -p.size * 0.4, p.size * 0.4
         );
-        hGrad.addColorStop(0,   'rgba(255,255,255,0.55)');
-        hGrad.addColorStop(1,   'rgba(255,255,255,0)');
+        hGrad.addColorStop(0, 'rgba(255,255,255,0.22)');
+        hGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        drawHeart(0, 0, p.size);
+        ctx.save(); ctx.clip();
         ctx.fillStyle = hGrad;
         ctx.fillRect(-p.size * 1.2, -p.size * 1.2, p.size * 2.4, p.size * 2.4);
-
-        ctx.restore(); // restore clip
+        ctx.restore();
 
         ctx.restore();
 
