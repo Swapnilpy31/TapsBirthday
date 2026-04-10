@@ -85,7 +85,7 @@
     { type: 'recv', text: 'Kya', time: '11:58 PM' },
     { type: 'sent', text: 'New me abhi AI se website bnana sikha hai dikhata hu', time: '11:59 PM' },
     { type: 'typing', ms: 1600 },
-    { type: 'recv', text: 'Kya', time: '11:59 PM' },
+    { type: 'recv', text: 'Dikhao', time: '11:59 PM' },
     { type: 'sent', text: 'Ak Surprise hai Dekho', time: '11:59 PM', isKey: true },
 
     // This triggers the cinematic transition
