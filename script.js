@@ -497,14 +497,14 @@
       ctx.closePath();
     }
 
-    // 250 hearts, all starting at the bottom half for a massive dramatic rise
+    // 250 hearts, falling like glitter from the top
     for (let i = 0; i < 250; i++) {
-      const startY = h + Math.random() * h * 0.8; // start even lower
+      const startY = Math.random() * h * 1.5 - h * 0.5; // scatter vertically
       particles.push({
         x: Math.random() * w,
         y: startY,
-        vx: (Math.random() - 0.5) * 1.0,  // slightly wider spread
-        vy: -(Math.random() * 2.5 + 1.0), // much faster upward speed
+        vx: (Math.random() - 0.5) * 1.0,
+        vy: Math.random() * 2.5 + 1.0, // fall downward
         size: Math.random() * 9 + 4,      // slightly larger hearts
         rot: Math.random() * Math.PI * 2,
         rotV: (Math.random() - 0.5) * 0.04,
@@ -533,9 +533,9 @@
         ctx.fill();
         ctx.restore();
 
-        // Reset when it floats off the top
-        if (p.y < -20) {
-          p.y = h + 20;
+        // Reset when it floats off the bottom
+        if (p.y > h + 20) {
+          p.y = -20;
           p.x = Math.random() * w;
           p.size = Math.random() * 6 + 3;
         }
