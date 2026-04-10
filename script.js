@@ -42,42 +42,39 @@
     { type: 'typing', ms: 1100 },
     { type: 'sent', text: 'Hello', time: '2:47 PM' },
     { type: 'typing', ms: 1600 },
-    { type: 'recv', text: 'Kya chalra hai?', time: '2:48 PM' },
+    { type: 'recv', text: 'Kya chal rha hai?', time: '2:48 PM' },
     { type: 'typing', ms: 1000 },
     { type: 'sent', text: 'Bas wahi same study, tum batao', time: '2:48 PM' },
     { type: 'typing', ms: 1900 },
-    { type: 'recv', text: 'Kuch nahi, bore ho rahi thi', time: '2:49 PM' },
+    { type: 'recv', text: 'Kuch nahi, brtn dhoyi kpde saaf kiye room me pochha lga kr abhi khali huyi', time: '2:49 PM' },
     { type: 'typing', ms: 1100 },
-    { type: 'sent', text: 'Toh mujhe msg kar diya kro? lol', time: '2:49 PM' },
+    { type: 'sent', text: 'Ha Din bhr time nhi milta na', time: '2:49 PM' },
     { type: 'typing', ms: 1800 },
-    { type: 'recv', text: 'Haan, aur koi thha nahi', time: '2:49 PM' },
+    { type: 'recv', text: 'Jldi Jldi krke time nikali baat krne ke liye', time: '2:49 PM' },
     { type: 'typing', ms: 700 },
-    { type: 'sent', text: 'Nice', time: '2:50 PM' },
+    { type: 'sent', text: 'Achha', time: '2:50 PM' },
 
     { type: 'date-divider', text: 'A few days later…' },
 
     { type: 'recv', text: 'Suno', time: '8:21 PM', gap: 800 },
-    { type: 'typing', ms: 1700 },
     { type: 'sent', text: 'Haan bolo', time: '8:22 PM' },
     { type: 'typing', ms: 1400 },
     { type: 'recv', text: 'Videocall kare?', time: '8:22 PM' },
-    { type: 'typing', ms: 700 },
     { type: 'sent', text: 'Abhi baahar hu, thodi der me karu?', time: '8:22 PM' },
     { type: 'typing', ms: 2200 },
-    { type: 'recv', text: 'Hamesha nakhre tumhare, mat karo jao', time: '8:23 PM' },
-    { type: 'typing', ms: 1000 },
+    { type: 'recv', text: 'Hamesha ka to yhi hai, mat kro jao', time: '8:23 PM' },
     { type: 'sent', text: '😂 Arey gussa mat ho karta hu 5 min me', time: '8:23 PM' },
     { type: 'typing', ms: 2800 },
-    { type: 'recv', text: 'Hmm', time: '8:24 PM' },
+    { type: 'recv', text: 'Thik', time: '8:24 PM' },
 
-    { type: 'date-divider', text: 'Some memories…' },
+    // { type: 'date-divider', text: 'Some memories…' },
 
-    { type: 'photo', photoIndex: 0, time: '4:13 PM', gap: 1000 },
-    { type: 'photo', photoIndex: 1, time: '4:14 PM', gap: 700 },
+    // { type: 'photo', photoIndex: 0, time: '4:13 PM', gap: 1000 },
+    // { type: 'photo', photoIndex: 1, time: '4:14 PM', gap: 700 },
 
-    { type: 'date-divider', text: 'Our song…' },
+    // { type: 'date-divider', text: 'Our song…' },
 
-    { type: 'voice', time: '9:30 PM', gap: 900 },
+    // { type: 'voice', time: '9:30 PM', gap: 900 },
 
     { type: 'date-divider', text: 'Today…' },
 
@@ -86,7 +83,7 @@
     { type: 'sent', text: 'Wese hi soch rha tha', time: '11:58 PM' },
     { type: 'typing', ms: 2800 },
     { type: 'recv', text: 'Kya', time: '11:58 PM' },
-    { type: 'sent', text: 'Abhi main kuch dikhata hu ', time: '11:59 PM' },
+    { type: 'sent', text: 'New me abhi AI se website bnana sikha hai dikhata hu', time: '11:59 PM' },
     { type: 'typing', ms: 1600 },
     { type: 'recv', text: 'Kya', time: '11:59 PM' },
     { type: 'sent', text: 'Ak Surprise hai Dekho', time: '11:59 PM', isKey: true },
@@ -486,17 +483,17 @@
 
     // Color helpers for 3D shading
     function lighten(hex, amt) {
-      const n = parseInt(hex.replace('#',''), 16);
+      const n = parseInt(hex.replace('#', ''), 16);
       let r = Math.min(255, ((n >> 16) & 0xff) + Math.round(amt * 255));
-      let g = Math.min(255, ((n >> 8)  & 0xff) + Math.round(amt * 255));
-      let b = Math.min(255, ((n)       & 0xff) + Math.round(amt * 255));
+      let g = Math.min(255, ((n >> 8) & 0xff) + Math.round(amt * 255));
+      let b = Math.min(255, ((n) & 0xff) + Math.round(amt * 255));
       return `rgb(${r},${g},${b})`;
     }
     function darken(hex, amt) {
-      const n = parseInt(hex.replace('#',''), 16);
+      const n = parseInt(hex.replace('#', ''), 16);
       let r = Math.max(0, ((n >> 16) & 0xff) - Math.round(amt * 255));
-      let g = Math.max(0, ((n >> 8)  & 0xff) - Math.round(amt * 255));
-      let b = Math.max(0, ((n)       & 0xff) - Math.round(amt * 255));
+      let g = Math.max(0, ((n >> 8) & 0xff) - Math.round(amt * 255));
+      let b = Math.max(0, ((n) & 0xff) - Math.round(amt * 255));
       return `rgb(${r},${g},${b})`;
     }
 
